@@ -1,0 +1,273 @@
+# =============================================================================
+# MFA Financial (NYSE: MFA) — Book Value Stress Config
+# Source: MFA Financial Form 10-Q, quarter ended March 31, 2026
+#
+# QUARTERLY WORKFLOW: copy this file to config/<YYYYQ#>.yaml, then update every
+# number below from the new 10-Q. Page numbers WILL drift quarter to quarter;
+# the table/section NAMES will not. Update sources are listed in
+# `quarterly_workflow.update_checklist` at the bottom.
+#
+# UNITS: dollars are in $ THOUSANDS unless a field name ends in `_mm`
+# ($ millions) — matching how each figure is reported on the cited page, so a
+# reviewer can tie every line straight back to the filing. validate.py handles
+# the unit reconciliation on load.
+# =============================================================================
+
+meta:
+  ticker: MFA
+  entity: "MFA Financial, Inc."
+  as_of_date: "2026-03-31"
+  filing: "Form 10-Q, quarter ended March 31, 2026"
+  currency: USD
+
+# -----------------------------------------------------------------------------
+# MARKET DATA — live share price for premium/discount-to-book (user-adjustable)
+# Not from the filing; update to the latest close. Used only for the price-vs-
+# book premium/discount readout in the dashboard.
+# -----------------------------------------------------------------------------
+market:
+  price_per_share: 9.48       # NYSE:MFA last price
+  price_as_of: "2026-07-03"
+
+# -----------------------------------------------------------------------------
+# BALANCE SHEET — 10-Q p.3 (Consolidated Balance Sheets), $ thousands
+# -----------------------------------------------------------------------------
+balance_sheet:
+  total_stockholders_equity: 1779357      # p.3
+  preferred_liquidation_preference: 489291 # Series B 204,643 + Series C 284,648
+  preferred_series_b: 204643              # p.3
+  preferred_series_c: 284648              # p.3
+  common_shares_outstanding: 101596       # thousands of shares, p.3
+  cash_unrestricted: 221573               # p.3
+  restricted_cash: 189238                 # p.3 — NOT available for margin calls
+
+# -----------------------------------------------------------------------------
+# BOOK VALUE RECONCILIATION — 10-Q p.76, $ MILLIONS (note the _mm suffix)
+# GAAP -> Economic (non-GAAP) BVPS bridge. These are the validation targets.
+# -----------------------------------------------------------------------------
+book_value_reconciliation:
+  gaap_common_equity_for_bvps_mm: 1290.1  # = 1,779.4 - 489.3 (equity less pref)
+  fv_adj_residential_loans_carrying_mm: 7.6   # add-back: loans held at cost < FV
+  fv_adj_securitized_debt_carrying_mm: 45.2   # add-back: debt held at cost > FV
+  economic_common_equity_mm: 1342.9       # = 1290.1 + 7.6 + 45.2
+  reported_gaap_bvps: 12.70               # VALIDATION TARGET (to the penny)
+  reported_economic_bvps: 13.22           # VALIDATION TARGET (to the penny)
+  other_unencumbered_securities_mm: 56.5  # p.58 footnote — extra liquidity w/ haircut
+
+# -----------------------------------------------------------------------------
+# ASSET ALLOCATION — 10-Q p.58, $ MILLIONS (all _mm)
+# Per segment: assets / non-MTM debt / MTM debt / securitized debt /
+#              senior-other financing / net equity allocated.
+# validate.py cross-foots each financing column against the totals below.
+# -----------------------------------------------------------------------------
+asset_allocation:
+  segments:
+    - name: "Non-QM loans"
+      key: non_qm
+      credit_sensitive: true
+      assets_mm: 5530
+      non_mtm_debt_mm: 0
+      mtm_debt_mm: 574
+      securitized_debt_mm: 4362
+      senior_other_mm: 0
+      net_equity_mm: 594
+
+    - name: "Single-family rental"
+      key: sfr
+      credit_sensitive: true
+      assets_mm: 1195
+      non_mtm_debt_mm: 17
+      mtm_debt_mm: 247
+      securitized_debt_mm: 755
+      senior_other_mm: 0
+      net_equity_mm: 176
+
+    - name: "SF transitional"
+      key: sf_transitional
+      credit_sensitive: true
+      transitional: true          # LTVs may be as-repaired/stabilized; as-is is worse
+      assets_mm: 658
+      non_mtm_debt_mm: 30
+      mtm_debt_mm: 249
+      securitized_debt_mm: 285
+      senior_other_mm: 0
+      net_equity_mm: 94
+
+    - name: "MF transitional"
+      key: mf_transitional
+      credit_sensitive: true
+      transitional: true
+      assets_mm: 407
+      non_mtm_debt_mm: 18
+      mtm_debt_mm: 211
+      securitized_debt_mm: 77
+      senior_other_mm: 0
+      net_equity_mm: 101
+
+    - name: "Legacy RPL/NPL"
+      key: legacy_rpl_npl
+      credit_sensitive: true
+      assets_mm: 943
+      non_mtm_debt_mm: 0
+      mtm_debt_mm: 79
+      securitized_debt_mm: 786
+      senior_other_mm: 0
+      net_equity_mm: 78
+
+    - name: "Agency MBS"
+      key: agency
+      credit_sensitive: false     # agency-guaranteed: credit-loss-exempt
+      agency: true                # margin-call risk only (price shock on MTM repo)
+      assets_mm: 3529
+      non_mtm_debt_mm: 0
+      mtm_debt_mm: 3095
+      securitized_debt_mm: 0
+      senior_other_mm: 0
+      net_equity_mm: 392
+
+    - name: "Other, net"
+      key: other
+      credit_sensitive: false     # credit-loss-exempt
+      assets_mm: 677
+      non_mtm_debt_mm: 0
+      mtm_debt_mm: 118
+      securitized_debt_mm: 0
+      senior_other_mm: 209
+      net_equity_mm: 344
+
+  # Reported totals — validate.py hard-fails if the columns above do not sum here.
+  totals_mm:
+    assets: 12939
+    non_mtm_debt: 65
+    mtm_debt: 4573
+    securitized_debt: 6271
+    senior_other: 209
+    net_equity: 1779
+
+# -----------------------------------------------------------------------------
+# LOAN CHARACTERISTICS — 10-Q p.18, per credit-sensitive segment
+# WA LTV / WA FICO / 60+ DPD %. Agency & Other carry no LTV (loss-exempt).
+# -----------------------------------------------------------------------------
+loan_characteristics:
+  non_qm:            { wa_ltv: 0.64, wa_fico: 739, dpd_60plus: 0.041 }
+  sfr:               { wa_ltv: 0.66, wa_fico: 740, dpd_60plus: 0.026 }
+  sf_transitional:   { wa_ltv: 0.68, wa_fico: 751, dpd_60plus: 0.158 }
+  mf_transitional:   { wa_ltv: 0.83, wa_fico: 748, dpd_60plus: 0.165 }
+  legacy_rpl_npl:    { wa_ltv: 0.53, wa_fico: 646, dpd_60plus: 0.190 }
+
+# -----------------------------------------------------------------------------
+# NET INTEREST SPREAD — 10-Q p.66 ("components of net interest spread"), quarter
+# ended March 31, 2026. Decimals (5.90% -> 0.0590). Used by the DSCR tab.
+#   net_yield        = annualized interest income / avg amortized cost  (footnote 1)
+#   cost_of_funding  = annualized interest expense / avg financing bal   (footnote 2)
+#   swap_carry       = net swap interest received-paid, allocated to class (fn 3)
+# The filing reports Business Purpose Loans as ONE line; the three BPL config
+# segments (SFR, SF- and MF-transitional) all map to that class below.
+# -----------------------------------------------------------------------------
+net_interest_spread:
+  as_of: "2026-03-31"
+  segment_class:            # credit segment -> spread class in `classes`
+    non_qm: non_qm
+    sfr: business_purpose
+    sf_transitional: business_purpose
+    mf_transitional: business_purpose
+    legacy_rpl_npl: legacy_rpl_npl
+  classes:
+    non_qm:           { net_yield: 0.0590, cost_of_funding: 0.0507, swap_carry: 0.0036 }
+    business_purpose: { net_yield: 0.0712, cost_of_funding: 0.0554, swap_carry: 0.0032 }
+    legacy_rpl_npl:   { net_yield: 0.0793, cost_of_funding: 0.0427, swap_carry: 0.0036 }
+    securities:       { net_yield: 0.0547, cost_of_funding: 0.0384, swap_carry: 0.0056 }
+
+# -----------------------------------------------------------------------------
+# DELINQUENCY AGING — 10-Q p.18 (aging by UPB), $ THOUSANDS, as of Mar 31 2026.
+# The 60+ DPD for each segment is anchored to loan_characteristics above (the
+# authoritative Mar 31 2026 figure the credit-stress tab also uses) — validate.py
+# HARD-FAILS if the two ever drift. The 30-59 / 60-89 / 90+ SPLIT is scaled from
+# the prior quarter's aging shape because the granular Mar buckets are not broken
+# out separately here, so on the DSCR tab the 60+ tier is EXACT while the 30+ and
+# 90+ tiers are estimates. validate.py also checks each row cross-foots to UPB.
+# -----------------------------------------------------------------------------
+delinquency_aging:
+  as_of: "2026-03-31"
+  segments:
+    non_qm:          { upb: 5322321, current: 4936751, dpd_30_59: 167355, dpd_60_89: 46283, dpd_90plus: 171932 }
+    sfr:             { upb: 1246745, current: 1191296, dpd_30_59:  23034, dpd_60_89:  4300, dpd_90plus:  28115 }
+    sf_transitional: { upb:  732059, current:  550116, dpd_30_59:  66278, dpd_60_89:  3487, dpd_90plus: 112178 }
+    mf_transitional: { upb:  531804, current:  399686, dpd_30_59:  44523, dpd_60_89: 32905, dpd_90plus:  54690 }
+    legacy_rpl_npl:  { upb: 1097698, current:  766849, dpd_30_59: 122286, dpd_60_89: 46356, dpd_90plus: 162207 }
+
+# -----------------------------------------------------------------------------
+# SIMULATION DEFAULTS — sidebar starting values (all user-adjustable in app.py)
+# -----------------------------------------------------------------------------
+simulation_defaults:
+  hp_shock: -0.30                 # home-price shock, 0 to -0.50
+  loan_dispersion_sigma: 0.20     # loan-level HPA dispersion, 0.05-0.30
+  systematic_sigma: 0.05          # cross-segment systematic sigma, 0.00-0.10
+  foreclosure_cost: 0.10          # of post-shock value
+  n_sims: 10000                   # 1000 / 10000 / 50000
+  agency_price_shock: -0.03       # Agency MBS margin-purpose price shock, 0 to -0.10
+  lender_mark_severity: 1.0       # 0.5-1.5x multiplier on lender marks
+  fire_sale_discount: 0.05        # forced-deleveraging fire-sale discount
+  liquidity_haircut: 0.15         # haircut on unencumbered securities
+  ltv_std_dev: 0.12               # per-loan LTV dispersion within a segment
+  loans_per_segment: 500          # representative UPB-weighted loans per segment
+  seed: 42
+  default_mode: "negative_equity" # "negative_equity" | "ramp"
+  # ramp mode: P(strategic default) = 0% at 100 LTV -> 100% at 130 LTV (linear)
+  ramp_ltv_low: 1.00
+  ramp_ltv_high: 1.30
+  remark_fv_to_zero: false        # conservative Economic BV: zero FV add-backs under stress
+
+# -----------------------------------------------------------------------------
+# INTEREST-RATE / DURATION SHOCK — 10-Q ("Shock Table")
+# Parallel rate shocks and their MTM impact on portfolio value and equity,
+# INCLUDING swaps, securitized debt and other fixed-rate debt. MFA's reported
+# figures are exactly a quadratic in the rate shock (duration + convexity), so
+# the engine fits dNPV($000) = a*bps + b*bps^2 to the anchors below and ties to
+# the filing to the dollar. Book-value impact flows dollar-for-dollar to equity.
+# -----------------------------------------------------------------------------
+interest_rate_shock:
+  net_effective_duration: 0.96      # portfolio net effective duration (years)
+  net_convexity: -0.63              # portfolio convexity
+  net_portfolio_value_base_mm: 13556  # implied NPV base (~ChgNPV / %ChgNPV), for %NPV column
+
+  # per-bucket duration / convexity (Shock Table text). market_value_mm from p.58 sums;
+  # validate.py checks loans + securities + other == total assets.
+  components:
+    residential_whole_loans:        # Non-QM + SFR + SF/MF transitional + Legacy
+      market_value_mm: 8733
+      duration: 3.21
+      convexity: -0.33
+    securities:                     # Agency MBS
+      market_value_mm: 3529
+      duration: 3.78
+      convexity: -1.46
+    derivatives_and_fixed_debt:     # swaps + securitized/other fixed-rate debt (hedge)
+      duration: -2.61
+      convexity: 0.0
+    other_and_cash:
+      market_value_mm: 677
+      duration: 0.0
+      convexity: 0.0
+
+  # Reported Shock Table — validation anchors. npv change in $ THOUSANDS,
+  # pct_npv / pct_equity as decimals. Negative = loss.
+  reported_shock_table:
+    - { bps:  100, npv_change_thousands: -172333, pct_npv: -0.0127, pct_equity: -0.0969 }
+    - { bps:   50, npv_change_thousands:  -75514, pct_npv: -0.0056, pct_equity: -0.0424 }
+    - { bps:    0, npv_change_thousands:       0, pct_npv:  0.0,    pct_equity:  0.0 }
+    - { bps:  -50, npv_change_thousands:   54210, pct_npv:  0.0040, pct_equity:  0.0305 }
+    - { bps: -100, npv_change_thousands:   87115, pct_npv:  0.0064, pct_equity:  0.0490 }
+
+  slider_bps_range: [-200, 200]     # dashboard rate-shock slider bounds
+
+# -----------------------------------------------------------------------------
+# QUARTERLY WORKFLOW — what to update next quarter (names stable, pages drift)
+# -----------------------------------------------------------------------------
+quarterly_workflow:
+  update_checklist:
+    - "Consolidated Balance Sheets (p.3 this quarter): equity, preferred, shares, cash"
+    - "Loan characteristics table (p.18): WA LTV / FICO / 60+ DPD per segment"
+    - "Asset allocation / financing table (p.58): assets & financing columns per segment"
+    - "Interest-rate Shock Table: reported dNPV/%equity anchors + bucket duration/convexity"
+    - "Book value reconciliation, GAAP->Economic (p.76): FV add-backs, reported BVPS"
