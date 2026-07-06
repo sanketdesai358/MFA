@@ -961,17 +961,6 @@ def main() -> None:
     with tab_dscr:
         _render_dscr_tab(cfg)
 
-    # ---- quarterly workflow panel ------------------------------------------
-    with st.expander("Quarterly workflow — update checklist for next 10-Q", expanded=False):
-        st.markdown(
-            f"**Loaded config:** `{os.path.basename(cfg_path)}`  ·  "
-            f"**as-of:** {meta['as_of_date']}  ·  **filing:** {meta['filing']}"
-        )
-        st.markdown("Copy this config, then update from the new 10-Q "
-                    "(page numbers drift; table names don't):")
-        for item in cfg["quarterly_workflow"]["update_checklist"]:
-            st.markdown(f"- [ ] {item}")
-
     st.caption("Educational stress model — not investment advice. All inputs from "
                f"MFA's {meta['as_of_date']} 10-Q. Shares held constant (no "
                "buybacks/issuance mid-stress).")
