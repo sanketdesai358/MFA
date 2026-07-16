@@ -562,7 +562,7 @@ a mid-teens yield as you wait.
 
 ### 3. Why the Discount Exists
 
-There are 5 main reasons, to me, why MFA trades at such a steep discount even in
+There are 4 major reasons, to me, why MFA trades at such a steep discount even in
 current times:
 
 - **Inherent risk and complexity of levered credit.** A book of non-QM,
