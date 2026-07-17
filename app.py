@@ -652,7 +652,9 @@ in those deals (non-recourse). Margin calls apply only to mark-to-market debt an
 are tested against ~\$270 million of unrestricted cash and unencumbered
 securities. Two default assumptions are shown: a draconian "cliff" (100% of
 underwater loans default) and a more realistic ramp (default probability rising
-from 0% at 100 LTV to 100% at 130 LTV).
+from 0% at 100 LTV to 100% at 130 LTV). The biggest levers in losses here are
+estimations of home prices falling and a standard deviation around that number
+(intuitively increasing both results in larger losses).
 
 **Stressed Economic Book Value per Share (reported: \$13.22)**
 
