@@ -585,7 +585,7 @@ current times:
   thin air, and MFA's equity is a levered claim on home prices.
 
 Against that backdrop, the discount is easy to understand. In a span of three
-years the sector absorbed the two things that are inherently worst for levered
+years the sector absorbed the two things that are inherently worse for levered
 mortgage: a pandemic causing forced asset sales, and the steepest rate increase
 in half a century. It makes sense that book value fell roughly 56% over a
 four-year period. But the market is pricing in the residual pain of the book
