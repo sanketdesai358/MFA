@@ -748,7 +748,7 @@ def _render_thesis_tab(cfg: dict, shocks, disps, med_z: np.ndarray) -> None:
 # Main app
 # =============================================================================
 def main() -> None:
-    st.set_page_config(page_title="MFA Book-Value Stress", layout="wide",
+    st.set_page_config(page_title="MFA Book-Value Model", layout="wide",
                        initial_sidebar_state="expanded")
     st.markdown(
         f"<style>.stApp{{background:{BG}}} .block-container{{padding-top:1.2rem}}"
@@ -773,7 +773,7 @@ def main() -> None:
     d0 = cfg["simulation_defaults"]
     bvr = cfg["book_value_reconciliation"]
 
-    st.title("MFA Financial — Book Value Stress")
+    st.title("MFA Financial — Book Value Model")
     st.caption(
         f"{meta['entity']} ({meta['ticker']}) · {meta['filing']} · "
         f"as of {meta['as_of_date']} · reported Economic BVPS "
