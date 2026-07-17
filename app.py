@@ -550,7 +550,7 @@ low-double-digit to single-digit premiums. So the question the market is
 implicitly asking is: why does MFA deserve a discount steeper than its peer
 group's normal range? Is something inherently broken?
 
-My answer is no. The discount is a scar from two genuine traumas, COVID and the
+My answer is no. The discount is a scar from two genuine book value shocks, COVID and the
 2022 rate shock, but the company that earned those scars no longer exists in its
 old form. Management rebuilt the liability structure specifically so that the
 mechanism that destroyed book value in 2020 (mark-to-market margin calls forcing
