@@ -644,7 +644,7 @@ through defaults, loss severities, the financing waterfall, and finally into boo
 value per share. The mechanics: each segment's loans are simulated with a
 loan-level LTV distribution calibrated to the reported weighted averages (using
 the WA alone would understate tail losses badly); each path draws a national home
-price shock with 20% loan-level dispersion; any loan pushed into negative equity
+price shock with a given loan-level dispersion; any loan pushed into negative equity
 is assumed to eventually default, with loss severity equal to the equity shortfall
 plus 10% foreclosure costs; loans already 60+ days delinquent default regardless
 of equity. Losses on securitized collateral are capped at MFA's retained equity
