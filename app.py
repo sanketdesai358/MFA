@@ -687,7 +687,7 @@ disabled for ~87% of its funding.
 The risks are real and worth stating plainly. A severe housing recession (−25% or
 worse nationally) impairs book value dramatically regardless of financing
 structure; non-recourse debt caps losses, it does not eliminate them. The
-multifamily transitional book (83% LTV, 30% delinquent) could produce outsized
+multifamily transitional book (83% LTV, ~17% delinquent) could produce outsized
 losses relative to its size. The \$3.1B agency repo book carries spread and margin
 risk even without credit risk; a 2022-style spread blow-out would again pressure
 book value and liquidity. Dividend sustainability depends on net interest spread,
