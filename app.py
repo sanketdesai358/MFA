@@ -518,7 +518,7 @@ def _render_rate_tab(cfg: dict, price: float) -> None:
 # LaTeX math. Section numbers match the write-up.
 # =============================================================================
 _THESIS_MD = r"""
-## MFA Financial: Value in Levered Residential Credit
+## MFA Financial: Value in Levered Residential Credit (Abridged Thesis)
 
 ### 1. Overview
 
