@@ -1,9 +1,9 @@
 """
-model.py — vectorized NumPy Monte Carlo engine for MFA book-value stress.
+model.py : vectorized NumPy Monte Carlo engine for MFA book-value stress.
 
 Design goals
 ------------
-* 10k+ paths in <2s. No per-path Python loops — the only Python loop is over the
+* 10k+ paths in <2s. No per-path Python loops : the only Python loop is over the
   handful of balance-sheet SEGMENTS (5 credit-sensitive + 2 loss-exempt). Within
   a segment everything is vectorized over (n_sims x n_loans) with float32.
 * Deterministic given a seed: the loan tape (LTVs, delinquency flags) is FROZEN
@@ -243,7 +243,7 @@ def run_simulation(cfg: dict, params: ModelParams) -> SimResults:
 
     # we need the median path to sample post-shock LTVs; do a first pass to get
     # econ BVPS, then re-derive median-path LTVs from stored per-segment HPA is
-    # expensive — instead store post-shock LTV for the path nearest to the median
+    # expensive : instead store post-shock LTV for the path nearest to the median
     # SEGMENT shock, which is representative. Simpler: store post-shock LTV at the
     # path whose systematic factor is the median (deterministic, representative).
     median_sys_path = int(np.argsort(eps_sys)[n_sims // 2])
@@ -502,14 +502,14 @@ def rate_shock_curve(cfg: dict, bps) -> dict:
     """Interest-rate shock analysis over an array of parallel bps shocks.
 
     Returns, per bps point:
-      * dnpv_mm       — net portfolio value change (incl. swaps & debt), $mm,
+      * dnpv_mm       : net portfolio value change (incl. swaps & debt), $mm,
                         from the quadratic fit to the reported table (ties to 10-Q)
-      * loan_pnl_mm   — mark-to-market P&L on the residential whole-loan book
+      * loan_pnl_mm   : mark-to-market P&L on the residential whole-loan book
                         alone, from disclosed loan duration/convexity, $mm
-      * hedge_other_mm — implied non-loan/hedge contribution = dnpv - loan_pnl
-      * econ_bvps_net       — Economic BVPS applying the net (hedged) change
-      * econ_bvps_loans_only — Economic BVPS if ONLY the loan book re-marked
-      * pct_equity    — dnpv / total stockholders' equity
+      * hedge_other_mm : implied non-loan/hedge contribution = dnpv - loan_pnl
+      * econ_bvps_net       : Economic BVPS applying the net (hedged) change
+      * econ_bvps_loans_only : Economic BVPS if ONLY the loan book re-marked
+      * pct_equity    : dnpv / total stockholders' equity
     """
     irs = cfg["interest_rate_shock"]
     bs = cfg["balance_sheet"]
@@ -595,7 +595,7 @@ def dscr_analysis(cfg: dict, measure: str = "dpd_60plus",
 
     Delinquent loans are assumed to stop paying interest (less any partial
     `recovery_on_delinquent` on the delinquent slice), so performing income is
-    scaled by (1 - delinquency). Debt service is unchanged — MFA still owes its
+    scaled by (1 - delinquency). Debt service is unchanged : MFA still owes its
     lenders regardless of borrower delinquency.
 
         DSCR = (income * performing_fraction + swap) / expense

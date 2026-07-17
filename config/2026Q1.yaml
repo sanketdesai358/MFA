@@ -1,5 +1,5 @@
 # =============================================================================
-# MFA Financial (NYSE: MFA) — Book Value Stress Config
+# MFA Financial (NYSE: MFA) : Book Value Stress Config
 # Source: MFA Financial Form 10-Q, quarter ended March 31, 2026
 #
 # QUARTERLY WORKFLOW: copy this file to config/<YYYYQ#>.yaml, then update every
@@ -8,7 +8,7 @@
 # `quarterly_workflow.update_checklist` at the bottom.
 #
 # UNITS: dollars are in $ THOUSANDS unless a field name ends in `_mm`
-# ($ millions) — matching how each figure is reported on the cited page, so a
+# ($ millions) : matching how each figure is reported on the cited page, so a
 # reviewer can tie every line straight back to the filing. validate.py handles
 # the unit reconciliation on load.
 # =============================================================================
@@ -21,7 +21,7 @@ meta:
   currency: USD
 
 # -----------------------------------------------------------------------------
-# MARKET DATA — live share price for premium/discount-to-book (user-adjustable)
+# MARKET DATA : live share price for premium/discount-to-book (user-adjustable)
 # Not from the filing; update to the latest close. Used only for the price-vs-
 # book premium/discount readout in the dashboard.
 # -----------------------------------------------------------------------------
@@ -30,7 +30,7 @@ market:
   price_as_of: "2026-07-03"
 
 # -----------------------------------------------------------------------------
-# BALANCE SHEET — 10-Q p.3 (Consolidated Balance Sheets), $ thousands
+# BALANCE SHEET : 10-Q p.3 (Consolidated Balance Sheets), $ thousands
 # -----------------------------------------------------------------------------
 balance_sheet:
   total_stockholders_equity: 1779357      # p.3
@@ -39,10 +39,10 @@ balance_sheet:
   preferred_series_c: 284648              # p.3
   common_shares_outstanding: 101596       # thousands of shares, p.3
   cash_unrestricted: 221573               # p.3
-  restricted_cash: 189238                 # p.3 — NOT available for margin calls
+  restricted_cash: 189238                 # p.3 : NOT available for margin calls
 
 # -----------------------------------------------------------------------------
-# BOOK VALUE RECONCILIATION — 10-Q p.76, $ MILLIONS (note the _mm suffix)
+# BOOK VALUE RECONCILIATION : 10-Q p.76, $ MILLIONS (note the _mm suffix)
 # GAAP -> Economic (non-GAAP) BVPS bridge. These are the validation targets.
 # -----------------------------------------------------------------------------
 book_value_reconciliation:
@@ -52,10 +52,10 @@ book_value_reconciliation:
   economic_common_equity_mm: 1342.9       # = 1290.1 + 7.6 + 45.2
   reported_gaap_bvps: 12.70               # VALIDATION TARGET (to the penny)
   reported_economic_bvps: 13.22           # VALIDATION TARGET (to the penny)
-  other_unencumbered_securities_mm: 56.5  # p.58 footnote — extra liquidity w/ haircut
+  other_unencumbered_securities_mm: 56.5  # p.58 footnote : extra liquidity w/ haircut
 
 # -----------------------------------------------------------------------------
-# ASSET ALLOCATION — 10-Q p.58, $ MILLIONS (all _mm)
+# ASSET ALLOCATION : 10-Q p.58, $ MILLIONS (all _mm)
 # Per segment: assets / non-MTM debt / MTM debt / securitized debt /
 #              senior-other financing / net equity allocated.
 # validate.py cross-foots each financing column against the totals below.
@@ -135,7 +135,7 @@ asset_allocation:
       senior_other_mm: 209
       net_equity_mm: 344
 
-  # Reported totals — validate.py hard-fails if the columns above do not sum here.
+  # Reported totals : validate.py hard-fails if the columns above do not sum here.
   totals_mm:
     assets: 12939
     non_mtm_debt: 65
@@ -145,7 +145,7 @@ asset_allocation:
     net_equity: 1779
 
 # -----------------------------------------------------------------------------
-# LOAN CHARACTERISTICS — 10-Q p.18, per credit-sensitive segment
+# LOAN CHARACTERISTICS : 10-Q p.18, per credit-sensitive segment
 # WA LTV / WA FICO / 60+ DPD %. Agency & Other carry no LTV (loss-exempt).
 # -----------------------------------------------------------------------------
 loan_characteristics:
@@ -156,7 +156,7 @@ loan_characteristics:
   legacy_rpl_npl:    { wa_ltv: 0.53, wa_fico: 646, dpd_60plus: 0.190 }
 
 # -----------------------------------------------------------------------------
-# NET INTEREST SPREAD — 10-Q p.66 ("components of net interest spread"), quarter
+# NET INTEREST SPREAD : 10-Q p.66 ("components of net interest spread"), quarter
 # ended March 31, 2026. Decimals (5.90% -> 0.0590). Used by the DSCR tab.
 #   net_yield        = annualized interest income / avg amortized cost  (footnote 1)
 #   cost_of_funding  = annualized interest expense / avg financing bal   (footnote 2)
@@ -179,9 +179,9 @@ net_interest_spread:
     securities:       { net_yield: 0.0547, cost_of_funding: 0.0384, swap_carry: 0.0056 }
 
 # -----------------------------------------------------------------------------
-# DELINQUENCY AGING — 10-Q p.18 (aging by UPB), $ THOUSANDS, as of Mar 31 2026.
+# DELINQUENCY AGING : 10-Q p.18 (aging by UPB), $ THOUSANDS, as of Mar 31 2026.
 # The 60+ DPD for each segment is anchored to loan_characteristics above (the
-# authoritative Mar 31 2026 figure the credit-stress tab also uses) — validate.py
+# authoritative Mar 31 2026 figure the credit-stress tab also uses) : validate.py
 # HARD-FAILS if the two ever drift. The 30-59 / 60-89 / 90+ SPLIT is scaled from
 # the prior quarter's aging shape because the granular Mar buckets are not broken
 # out separately here, so on the DSCR tab the 60+ tier is EXACT while the 30+ and
@@ -197,7 +197,7 @@ delinquency_aging:
     legacy_rpl_npl:  { upb: 1097698, current:  766849, dpd_30_59: 122286, dpd_60_89: 46356, dpd_90plus: 162207 }
 
 # -----------------------------------------------------------------------------
-# SIMULATION DEFAULTS — sidebar starting values (all user-adjustable in app.py)
+# SIMULATION DEFAULTS : sidebar starting values (all user-adjustable in app.py)
 # -----------------------------------------------------------------------------
 simulation_defaults:
   hp_shock: -0.30                 # home-price shock, 0 to -0.50
@@ -219,7 +219,7 @@ simulation_defaults:
   remark_fv_to_zero: false        # conservative Economic BV: zero FV add-backs under stress
 
 # -----------------------------------------------------------------------------
-# INTEREST-RATE / DURATION SHOCK — 10-Q ("Shock Table")
+# INTEREST-RATE / DURATION SHOCK : 10-Q ("Shock Table")
 # Parallel rate shocks and their MTM impact on portfolio value and equity,
 # INCLUDING swaps, securitized debt and other fixed-rate debt. MFA's reported
 # figures are exactly a quadratic in the rate shock (duration + convexity), so
@@ -250,7 +250,7 @@ interest_rate_shock:
       duration: 0.0
       convexity: 0.0
 
-  # Reported Shock Table — validation anchors. npv change in $ THOUSANDS,
+  # Reported Shock Table : validation anchors. npv change in $ THOUSANDS,
   # pct_npv / pct_equity as decimals. Negative = loss.
   reported_shock_table:
     - { bps:  100, npv_change_thousands: -172333, pct_npv: -0.0127, pct_equity: -0.0969 }
@@ -262,7 +262,7 @@ interest_rate_shock:
   slider_bps_range: [-200, 200]     # dashboard rate-shock slider bounds
 
 # -----------------------------------------------------------------------------
-# QUARTERLY WORKFLOW — what to update next quarter (names stable, pages drift)
+# QUARTERLY WORKFLOW : what to update next quarter (names stable, pages drift)
 # -----------------------------------------------------------------------------
 quarterly_workflow:
   update_checklist:

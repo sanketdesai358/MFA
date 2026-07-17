@@ -1,5 +1,5 @@
 """
-validate.py — cross-foots the MFA stress config on load and HARD-FAILS with a
+validate.py : cross-foots the MFA stress config on load and HARD-FAILS with a
 clear message if anything does not tie. Both model.py and app.py call
 `load_and_validate()` at startup so a bad config can never silently produce a
 wrong book value.
@@ -14,7 +14,7 @@ Checks performed
 3. Book value reconciliation is internally consistent
    (economic = GAAP common + FV add-backs).
 4. Baseline BVPS (zero shock) reproduces the reported GAAP $12.70 and
-   Economic $13.22 to the penny — the single most important check.
+   Economic $13.22 to the penny : the single most important check.
 
 Run standalone:  python validate.py --config config/2026Q1.yaml
 """
@@ -67,7 +67,7 @@ class _Report:
         body = "\n".join([header, *self.lines])
         if self.failed:
             raise ConfigValidationError(
-                body + "\n\nConfig REJECTED — fix the failing line(s) above."
+                body + "\n\nConfig REJECTED : fix the failing line(s) above."
             )
         # success: print the clean report so the user sees the tie-outs
         print(body)

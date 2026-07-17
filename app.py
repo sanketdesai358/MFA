@@ -1,5 +1,5 @@
 """
-app.py — MFA Financial book-value stress dashboard (Streamlit + Plotly).
+app.py: MFA Financial book-value stress dashboard (Streamlit + Plotly).
 
 Run:
     streamlit run app.py -- --config config/2026Q1.yaml
@@ -182,7 +182,7 @@ def bridge_waterfall(d: dict, remark: bool) -> go.Figure:
         totals=dict(marker=dict(color=ACCENT)),
     ))
     fig.update_yaxes(title="$/share")
-    return _style(fig, 420, "BVPS bridge — median path")
+    return _style(fig, 420, "BVPS bridge, median path")
 
 
 def exp_loss_bars(d: dict) -> go.Figure:
@@ -550,8 +550,8 @@ low-double-digit to single-digit premiums. So the question the market is
 implicitly asking is: why does MFA deserve a discount steeper than its peer
 group's normal range? Is something inherently broken?
 
-My answer is no. The discount is a scar from two genuine traumas — COVID and the
-2022 rate shock — but the company that earned those scars no longer exists in its
+My answer is no. The discount is a scar from two genuine traumas, COVID and the
+2022 rate shock, but the company that earned those scars no longer exists in its
 old form. Management rebuilt the liability structure specifically so that the
 mechanism that destroyed book value in 2020 (mark-to-market margin calls forcing
 asset sales at the bottom) can no longer operate at scale. The stress test in
@@ -576,7 +576,7 @@ current times:
   the market has not forgotten (roughly ~36% decline).
 - **The 2021–2023 interest rate back-up and mortgage spread blow-out.** The
   steepest rate-hiking cycle in roughly 50 years took agency spreads from around
-  50bps to roughly 190bps — levels last seen in 1986, 1998, 2000, and 2008. Book
+  50bps to roughly 190bps, levels last seen in 1986, 1998, 2000, and 2008. Book
   value declined further through this period (roughly 25% decline), albeit at a
   considerably slower pace than during COVID, and the dividend was cut from
   \$0.44 to \$0.35.
@@ -607,7 +607,7 @@ that breaks down as follows: \$6.27 billion (56%) is securitized debt
 in each deal are borne by securitization bondholders, not by MFA; \$0.27 billion
 is non-mark-to-market facilities and senior notes (also immune to margin calls);
 and \$4.57 billion (40%) is mark-to-market financing. Critically, \$3.1 billion
-of that mark-to-market debt finances the agency MBS book — one of the deepest,
+of that mark-to-market debt finances the agency MBS book, one of the deepest,
 most liquid collateral markets in the world, with modest haircuts and no
 credit-driven marks. The mark-to-market debt actually secured by credit-sensitive
 whole loans is only about \$1.5 billion, roughly 13% of total financing. That
@@ -686,7 +686,7 @@ disabled for ~87% of its funding.
 
 The risks are real and worth stating plainly. A severe housing recession (−25% or
 worse nationally) impairs book value dramatically regardless of financing
-structure — non-recourse debt caps losses, it does not eliminate them. The
+structure; non-recourse debt caps losses, it does not eliminate them. The
 multifamily transitional book (83% LTV, 30% delinquent) could produce outsized
 losses relative to its size. The \$3.1B agency repo book carries spread and margin
 risk even without credit risk; a 2022-style spread blow-out would again pressure
@@ -739,7 +739,7 @@ def _render_thesis_tab(cfg: dict, shocks, disps, med_z: np.ndarray) -> None:
             _draw(marker)
         remaining = after
     st.markdown(remaining)
-    st.caption("Charts are live — they recompute from config/2026Q1.yaml "
+    st.caption("Charts are live: they recompute from config/2026Q1.yaml "
                "(10-Q, quarter ended March 31, 2026) and the sidebar model "
                "settings. Source narrative: MFA_Financial_Thesis.docx.")
 
@@ -765,7 +765,7 @@ def main() -> None:
     try:
         cfg = _load_config(cfg_path, mtime)
     except ConfigValidationError as exc:
-        st.error("Config failed validation — fix before running:")
+        st.error("Config failed validation, fix before running:")
         st.code(str(exc))
         st.stop()
 
@@ -773,7 +773,7 @@ def main() -> None:
     d0 = cfg["simulation_defaults"]
     bvr = cfg["book_value_reconciliation"]
 
-    st.title("MFA Financial — Book Value Model")
+    st.title("MFA Financial: Book Value Model")
     st.caption(
         f"{meta['entity']} ({meta['ticker']}) · {meta['filing']} · "
         f"as of {meta['as_of_date']} · reported Economic BVPS "
@@ -818,7 +818,7 @@ def main() -> None:
     price = float(sb.number_input(
         "Current share price ($)", min_value=0.0,
         value=float(mkt.get("price_per_share", 9.48)), step=0.01,
-        help="NYSE:MFA last price — drives the premium/discount-to-book readout.",
+        help="NYSE:MFA last price, drives the premium/discount-to-book readout.",
     ))
     if mkt.get("price_as_of"):
         sb.caption(f"price as of {mkt['price_as_of']}")
@@ -842,7 +842,7 @@ def main() -> None:
 
     base_e = bvr["reported_economic_bvps"]
 
-    # Sensitivity heatmap grid — computed once and shared by the Thesis and
+    # Sensitivity heatmap grid: computed once and shared by the Thesis and
     # credit tabs (the same figure the write-up screenshots showed).
     shocks = tuple(np.round(np.linspace(0.0, -0.25, 6), 3))
     disps = tuple(np.round(np.linspace(0.05, 0.30, 6), 3))
@@ -858,7 +858,7 @@ def main() -> None:
         _render_thesis_tab(cfg, shocks, disps, med_z)
 
     # =====================================================================
-    # TAB 1 — home-price / credit stress (Monte Carlo)
+    # TAB 1: home-price / credit stress (Monte Carlo)
     # =====================================================================
     with tab_credit:
         # ---- KPI row --------------------------------------------------------
@@ -884,7 +884,7 @@ def main() -> None:
         mf_dr = next((r["default_rate"] for r in d["seg_table"]
                       if r["key"] == "mf_transitional"), 0.0)
         drop_pct = (base_e - s["median_econ_bvps"]) / base_e * 100
-        # NOTE: escape every "$" as "\$" — Streamlit markdown treats a bare
+        # NOTE: escape every "$" as "\$": Streamlit markdown treats a bare
         # "$...$" as LaTeX math and would garble the dollar figures.
         st.info(
             f"**Scenario narrative.** At a **{hp_shock:.0%}** home-price change with "
@@ -910,7 +910,7 @@ def main() -> None:
         c3, c4 = st.columns([1, 1])
         with c3:
             st.plotly_chart(exp_loss_bars(d), width='stretch')
-            st.caption("Expected loss to MFA vs net equity allocated — bars exceeding "
+            st.caption("Expected loss to MFA vs net equity allocated: bars exceeding "
                        "equity indicate segment wipeout.")
         with c4:
             st.plotly_chart(margin_liquidity(d), width='stretch')
@@ -923,7 +923,7 @@ def main() -> None:
                    "Mass right of the 100% line is negative equity.")
 
         # ---- heatmap (grid computed above, shared with the Thesis tab) ------
-        st.subheader("Sensitivity — HP shock × dispersion")
+        st.subheader("Sensitivity: HP shock × dispersion")
         h1, h2 = st.tabs(["Median Economic BVPS", "P(liquidity breach)"])
         with h1:
             st.plotly_chart(heatmap_fig(med_z, shocks, disps,
@@ -950,18 +950,18 @@ def main() -> None:
         st.dataframe(tbl, width='stretch', hide_index=True)
 
     # =====================================================================
-    # TAB 2 — interest-rate / duration (Shock Table)
+    # TAB 2: interest-rate / duration (Shock Table)
     # =====================================================================
     with tab_rate:
         _render_rate_tab(cfg, price)
 
     # =====================================================================
-    # TAB 3 — DSCR / delinquency stress (p.66 net interest spread + p.18 aging)
+    # TAB 3: DSCR / delinquency stress (p.66 net interest spread + p.18 aging)
     # =====================================================================
     with tab_dscr:
         _render_dscr_tab(cfg)
 
-    st.caption("Educational stress model — not investment advice. All inputs from "
+    st.caption("Educational stress model, not investment advice. All inputs from "
                f"MFA's {meta['as_of_date']} 10-Q. Shares held constant (no "
                "buybacks/issuance mid-stress).")
 
