@@ -522,191 +522,231 @@ _THESIS_MD = r"""
 
 ### 1. Overview
 
-In this paper I will go over an attractive investment opportunity in the
-Mortgage Real Estate Investment Trust (mREIT) space: MFA Financial (NYSE: MFA).
-MFA is an mREIT with close to a 30-year history and invests across various
-mortgage credit instruments. MFA, like other mREITs, employs considerable
-leverage to enhance returns and offers an attractive yield. Because of that
-leverage, and the complexity of the underlying loan books, these vehicles are
-often misunderstood by the public.
+In this paper, I will discuss what I believe is an attractive investment
+opportunity in the mortgage real estate investment trust (mREIT) space: MFA
+Financial (NYSE: MFA). MFA is an mREIT with nearly a 30-year history that invests
+across a variety of mortgage credit instruments. Like other mREITs, MFA employs
+considerable leverage to enhance returns and offers an attractive yield. Because
+of that leverage, as well as the complexity of the underlying loan books, these
+vehicles are often misunderstood by the public.
 
 It is worth distinguishing between the two broad strategies in the space. Agency
-mREITs lever quasi-government-guaranteed mortgages (agency MBS), taking
-essentially no credit risk but substantial rate and spread risk. Credit-focused
-mREITs primarily hold mortgages outside the agency wrapper (non-QM loans,
-business-purpose loans, re-performing loans) which offer high yields but carry
-genuine credit risk. MFA falls into the latter camp, with a \$12.9 billion
-portfolio spanning non-QM (\$5.5B), single-family rental (\$1.2B), transitional
-lending (\$1.1B), legacy re-performing/non-performing loans (\$0.9B), and a
-\$3.5B agency MBS book, financed with 6.3x leverage against \$1.8B of equity.
+mREITs leverage quasi-government-guaranteed mortgages, or agency MBS, taking
+essentially no credit risk but substantial interest-rate and spread risk.
+Credit-focused mREITs primarily hold mortgages outside the agency wrapper,
+including non-QM loans, business-purpose loans, and re-performing loans. These
+assets offer higher yields but carry genuine credit risk.
+
+MFA falls into the latter camp, with a \$12.9 billion portfolio spanning non-QM
+loans (\$5.5 billion), single-family rental loans (\$1.2 billion), transitional
+loans (\$1.1 billion), legacy re-performing and non-performing loans (\$0.9
+billion), and a \$3.5 billion agency MBS book. The portfolio is financed with
+6.3x leverage against \$1.8 billion of equity.
 
 ### 2. Thesis
 
-MFA currently trades at roughly 70% of its inherent book value, economic book
-value per share was \$13.22 at March 31, 2026, and yields approximately 15–16%.
-Credit-focused mREITs typically trade between 75–90% of book in normal times,
-and much lower in periods of stress and panic; agency REITs typically trade at
-low-double-digit to single-digit premiums. So the question the market is
-implicitly asking is: why does MFA deserve a discount steeper than its peer
-group's normal range? Is something inherently broken?
+MFA currently trades at roughly 70% of its economic book value. Economic book
+value per share was \$13.22 as of March 31, 2026, and the stock yields
+approximately 15% to 16%.
 
-My answer is no. The discount is a scar from two genuine book value shocks, COVID and the
-2022 rate shock, but the company that earned those scars no longer exists in its
-old form. Management rebuilt the liability structure specifically so that the
-mechanism that destroyed book value in 2020 (mark-to-market margin calls forcing
-asset sales at the bottom) can no longer operate at scale. The stress test in
-Section 6 quantifies this: at the current price, the market is effectively paying
-you to underwrite a housing decline on the order of −15% to −20% nationally, a
-scenario the balance sheet now survives without forced selling, while collecting
-a mid-teens yield as you wait.
+Credit-focused mREITs typically trade between 75% and 90% of book value during
+normal periods and substantially lower during periods of stress and panic. Agency
+mREITs typically trade at premiums ranging from the single digits to the low
+double digits. The question the market is implicitly asking, therefore, is: Why
+does MFA deserve a discount steeper than its peer group's normal range? Is
+something inherently broken?
+
+My answer is no. The discount is a scar from two genuine book value shocks: COVID
+and the 2022 interest-rate shock. However, the company that earned those scars no
+longer exists in its old form. Management rebuilt the liability structure
+specifically so that the mechanism that destroyed book value in 2020,
+mark-to-market margin calls that forced asset sales at the bottom, can no longer
+operate at scale.
+
+The stress test in Section 6 quantifies this. At the current price, the market is
+effectively paying investors to underwrite a national housing decline of
+approximately 15% to 20%, a scenario that the balance sheet can now survive
+without forced selling, while investors collect a mid-teens yield as they wait.
 
 ### 3. Why the Discount Exists
 
-There are 4 major reasons, to me, why MFA trades at such a steep discount even in
-current times:
+There are four major reasons, in my view, why MFA trades at such a steep discount
+even under current market conditions:
 
-- **Inherent risk and complexity of levered credit.** A book of non-QM,
-  transitional, and legacy NPL exposure financed 6.3x is legitimately harder to
-  underwrite than a T-bill. Complexity discounts are real, and most investors
-  will not read Note 6 of a 10-Q.
-- **Large margin calls and a steep drop in book value following COVID-19.** In
-  March 2020, mark-to-market repo lenders marked collateral down violently and
-  demanded margin. MFA was forced into forbearance with its lenders and into
-  asset sales into a dislocated market. Book value was permanently impaired and
-  the market has not forgotten (roughly ~36% decline).
-- **The 2021–2023 interest rate back-up and mortgage spread blow-out.** The
-  steepest rate-hiking cycle in roughly 50 years took agency spreads from around
-  50bps to roughly 190bps, levels last seen in 1986, 1998, 2000, and 2008. Book
-  value declined further through this period (roughly 25% decline), albeit at a
-  considerably slower pace than during COVID, and the dividend was cut from
-  \$0.44 to \$0.35.
-- **Strong concerns over housing affordability.** With affordability near
-  multi-decade lows, investors reasonably fear that home prices are supported by
-  thin air, and MFA's equity is a levered claim on home prices.
+- **Inherent risk and complexity within levered credit.** A portfolio of non-QM,
+  transitional, and legacy NPL exposure financed at 6.3x leverage is legitimately
+  more difficult to underwrite than a Treasury bill. Complexity discounts are
+  real, and most investors will not read Note 6 of a 10-Q.
+- **Large margin calls and a steep decline in book value following COVID-19.** In
+  March 2020, mark-to-market repo lenders aggressively marked down collateral
+  values and demanded additional margin. MFA was forced to enter into forbearance
+  agreements with its lenders and sell assets into a dislocated market. Book value
+  was permanently impaired, declining by roughly 36%, and the market has not
+  forgotten.
+- **The 2021–2023 increase in interest rates and widening in mortgage spreads.**
+  The steepest rate-hiking cycle in roughly 50 years took agency spreads from
+  approximately 50 basis points to roughly 190 basis points, levels previously
+  seen in 1986, 1998, 2000, and 2008. Book value declined by another roughly 25%
+  during this period, although at a considerably slower pace than during COVID.
+  The quarterly dividend was also cut from \$0.44 to \$0.35.
+- **Significant concerns about housing affordability.** With housing affordability
+  near multi-decade lows, investors reasonably fear that home prices are being
+  supported by thin air. MFA's equity is ultimately a levered claim on home
+  prices.
 
-Against that backdrop, the discount is easy to understand. In a span of three
-years the sector absorbed the two things that are inherently worse for levered
-mortgage: a pandemic causing forced asset sales, and the steepest rate increase
-in half a century. It makes sense that book value fell roughly 56% over a
-four-year period. But the market is pricing in the residual pain of the book
-value loss, not the current balance sheet.
+Against that backdrop, the discount is easy to understand. Within a span of three
+years, the sector absorbed the two developments that are inherently most damaging
+to levered mortgage investing: a pandemic that triggered forced asset sales and
+the steepest increase in interest rates in half a century.
+
+It therefore makes sense that book value fell by roughly 56% over a four-year
+period. However, the market is pricing in the residual pain associated with that
+book value loss rather than the strength of the current balance sheet.
 
 ### 4. The Financing Transformation
 
 The single most important post-COVID change is that management understood the
-lesson of March 2020: mark-to-market funding is the kill switch on a levered
-credit book. Beginning in 2021, MFA aggressively termed out its liabilities
-through securitization and non-mark-to-market facilities; non-MTM funding grew
-from roughly \$900 million to \$3.4 billion by Q4 2021, and the securitization
-program has continued to compound since. More or less, they shifted their
-liability structure completely.
+central lesson of March 2020: mark-to-market funding is the kill switch on a
+levered credit portfolio.
 
-The result, as of March 31, 2026, is a liability stack of roughly \$11.3 billion
-that breaks down as follows: \$6.27 billion (56%) is securitized debt
-(non-recourse, term, no margin calls) where losses beyond MFA's retained equity
-in each deal are borne by securitization bondholders, not by MFA; \$0.27 billion
-is non-mark-to-market facilities and senior notes (also immune to margin calls);
-and \$4.57 billion (40%) is mark-to-market financing. Critically, \$3.1 billion
-of that mark-to-market debt finances the agency MBS book, one of the deepest,
-most liquid collateral markets in the world, with modest haircuts and no
-credit-driven marks. The mark-to-market debt actually secured by credit-sensitive
-whole loans is only about \$1.5 billion, roughly 13% of total financing. That
-financing is dominated by transitional loans which are shorter in duration.
+Beginning in 2021, MFA aggressively termed out its liabilities through
+securitizations and non-mark-to-market facilities. Non-MTM funding increased from
+roughly \$900 million to \$3.4 billion by the fourth quarter of 2021, and the
+securitization program has continued to grow since then. Put simply, MFA
+fundamentally transformed its liability structure.
+
+As of March 31, 2026, the company had a liability stack of approximately \$11.3
+billion. Approximately \$6.27 billion (56%) is securitized debt, which is
+non-recourse, term-funded, and not subject to margin calls; losses beyond MFA's
+retained equity in each transaction are borne by securitization bondholders
+rather than MFA. Another \$270 million is non-mark-to-market facilities and senior
+notes, which are also immune to margin calls. The remaining \$4.57 billion
+(approximately 40%) is mark-to-market financing. Critically, \$3.1 billion of that
+debt finances the agency MBS portfolio, one of the deepest and most liquid
+collateral markets in the world, with modest haircuts and no credit-driven marks.
+The amount of mark-to-market debt actually secured by credit-sensitive whole loans
+is only approximately \$1.5 billion, representing roughly 13% of total financing.
+That financing is primarily tied to transitional loans, which are shorter in
+duration.
 
 This is the structural difference between MFA in 2020 and MFA today. In 2020, a
-decline in loan values transmitted directly into margin calls into forced sales
-into realized losses. Today, a decline in loan values on 87% of the funding stack
-transmits into... nothing immediate. Losses on securitized collateral accrue
-against MFA's retained equity slice over time, or past a point, against
-bondholders. There is no mechanism for a lender to force MFA to sell whole loans
-at the bottom of a panic on that portion of the book.
+decline in loan values translated directly into margin calls, forced sales, and
+realized losses. Today, a decline in loan values across approximately 87% of the
+funding stack results in no immediate liquidity event. Losses on securitized
+collateral accrue against MFA's retained equity position over time and, beyond a
+certain point, against the securitization bondholders. There is no mechanism
+through which a lender can force MFA to sell those whole loans at the bottom of a
+market panic.
 
 ### 5. The Portfolio Today
 
-The asset side also does not resemble a portfolio priced for distress.
-Weighted-average LTV across the \$8.8 billion residential whole loan book is 64%,
-meaning the average borrower has 36% equity in front of MFA's position. By
-segment: non-QM at 64% LTV with a 739 FICO and just 4.1% 60+ day delinquency;
-single-family rental at 66% LTV / 740 FICO / 2.6% delinquent; single-family
-transitional at 68% LTV; legacy RPL/NPL at 53% LTV (deep equity cushions, though
-a weak 646 FICO and 19% delinquency, these loans were bought as credit-impaired).
-The one genuinely hot spot is multifamily transitional: 83% LTV and 16.5% 60+ day
-delinquency on a \$407 million book. This is a hotspot for most investors of MFA
-as they have taken losses and stopped the program for a while. However there is a
-deeper equity cushion here on their leverage and makes up a small portion of
-their credit book (~5%).
+The asset side of the balance sheet also does not resemble a portfolio that should
+be priced for distress. The weighted-average loan-to-value ratio across MFA's
+\$8.8 billion residential whole-loan portfolio is 64%, meaning the average
+borrower has approximately 36% equity ahead of MFA's position. By segment: the
+non-QM portfolio has a 64% LTV, a 739 FICO score, and a 4.1% 60-plus-day
+delinquency rate; single-family rental has a 66% LTV, a 740 FICO, and a 2.6%
+delinquency rate; single-family transitional has a 68% LTV; and legacy RPL/NPL has
+a 53% LTV, providing a deep equity cushion, though also a weaker 646 FICO and a
+19% delinquency rate (these loans were purchased as credit-impaired assets).
+
+The one genuinely problematic area is multifamily transitional lending, which has
+an 83% LTV and a 16.5% 60-plus-day delinquency rate across a \$407 million
+portfolio. This is a major concern for many MFA investors, as the company has
+taken losses within the segment and temporarily stopped originating new loans
+through the program. However, MFA has a deeper equity cushion within the financing
+structure for these loans, and the portfolio represents only approximately 5% of
+the company's total credit book.
 
 ### 6. Stress Test: What Does It Take to Break This?
 
-Skepticism about levered credit deserves numbers. I built a Monte Carlo model
-that stresses home prices and home price dispersion and traces the results
-through defaults, loss severities, the financing waterfall, and finally into book
-value per share. The mechanics: each segment's loans are simulated with a
-loan-level LTV distribution calibrated to the reported weighted averages (using
-the WA alone would understate tail losses badly); each path draws a national home
-price shock with a given loan-level dispersion; any loan pushed into negative equity
-is assumed to eventually default, with loss severity equal to the equity shortfall
-plus 10% foreclosure costs; loans already 60+ days delinquent default regardless
-of equity. Losses on securitized collateral are capped at MFA's retained equity
-in those deals (non-recourse). Margin calls apply only to mark-to-market debt and
-are tested against ~\$270 million of unrestricted cash and unencumbered
-securities. Two default assumptions are shown: a draconian "cliff" (100% of
-underwater loans default) and a more realistic ramp (default probability rising
-from 0% at 100 LTV to 100% at 130 LTV). The biggest levers in losses here are
-estimations of home prices falling and a standard deviation around that number
-(intuitively increasing both results in larger losses).
+Skepticism toward levered credit deserves to be tested with numbers. I built a
+Monte Carlo model that stresses both national home prices and loan-level
+home-price dispersion, then traces the resulting effects through defaults, loss
+severities, the financing waterfall, and, ultimately, economic book value per
+share.
+
+The model works as follows: each segment's loans are simulated using a loan-level
+LTV distribution calibrated to the reported weighted averages (using only the
+weighted-average LTV would materially understate tail losses). Each simulation
+draws a national home-price shock with a specified level of loan-level dispersion.
+Any loan pushed into negative equity is assumed to eventually default, with loss
+severity equal to the equity shortfall plus 10% in foreclosure costs. Loans that
+are already 60 or more days delinquent are assumed to default regardless of their
+equity position. Losses on securitized collateral are capped at MFA's retained
+equity in those transactions because the debt is non-recourse. Margin calls apply
+only to mark-to-market debt and are tested against approximately \$270 million of
+unrestricted cash and unencumbered securities.
+
+I show two default assumptions. The first is a draconian "cliff" assumption, under
+which 100% of underwater loans default. The second is a more realistic ramp, under
+which default probability increases from 0% at a 100 LTV to 100% at a 130 LTV. The
+largest drivers of losses in the model are the assumed decline in national home
+prices and the standard deviation around that decline; intuitively, increasing
+either assumption produces larger losses.
 
 **Stressed Economic Book Value per Share (reported: \$13.22)**
 
 [[IMAGE1]]
 
-In a case of armageddon for the housing market, MFA does poorly. This is what we
-see in the top right corner. The GFC was roughly a peak-to-trough decline of
-~25-30% based on the index and some variance around which housing market. This
-also took 6 years to play out, not overnight as this model assumes. Today, given
-the persistent housing shortage, I think a more realistic "armageddon" would be
-home prices down 10-20% with a variance of 10-20%. In these scenarios MFA is
-roughly underwritten to today's prices!
+In a true Armageddon scenario for the housing market, MFA performs poorly. This is
+what appears in the upper-right corner of the stress table. During the Global
+Financial Crisis, national home prices declined by approximately 25% to 30% from
+peak to trough, depending on the index used and the housing market being measured.
+Importantly, that decline unfolded over approximately six years rather than
+occurring overnight, as the model conservatively assumes. Given today's persistent
+housing shortage, I believe a more realistic "Armageddon" scenario would involve
+national home prices declining by 10% to 20%, with loan-level dispersion of
+approximately 10% to 20%. Under these scenarios, MFA's economic book value is
+roughly underwritten to today's stock price.
 
-Now, suppose we saw another 200bps rate shock? MFA would again be roughly
-underwritten to today's prices.
+Now suppose the market experienced another 200-basis-point interest-rate shock.
+Under that scenario, MFA would again be roughly underwritten to today's price.
 
 [[IMAGE2]]
 
 ### 7. Return Framework
 
-The return does not require heroics. At a 15–16% yield, the dividend alone
-delivers an equity-like return if book value merely holds. If housing muddles
-through and MFA simply re-rates to the middle of the normal credit-mREIT range,
-say 80–85% of book, that is 15–20% of price appreciation layered on top. The
-downside case, per Section 6, is that a −10% to −15% housing decline is roughly
-what you are already paying for. The asymmetry comes from being paid mid-teens to
-hold an instrument whose worst historical failure mode has been structurally
-disabled for ~87% of its funding.
+The investment return does not require heroic assumptions. At a 15% to 16% yield,
+the dividend alone can deliver an equity-like return if book value merely remains
+stable. If the housing market muddles through and MFA simply re-rates toward the
+middle of the normal credit-mREIT valuation range, approximately 80% to 85% of
+book value, investors could receive 15% to 20% in price appreciation on top of the
+dividend yield.
+
+The downside case, based on the stress test in Section 6, is that a 10% to 15%
+housing decline is approximately what investors are already paying for at the
+current valuation. The asymmetry comes from being paid a mid-teens yield to own an
+instrument whose worst historical failure mechanism has been structurally disabled
+across approximately 87% of its funding stack.
 
 ### 8. Risks
 
-The risks are real and worth stating plainly. A severe housing recession (−25% or
-worse nationally) impairs book value dramatically regardless of financing
-structure; non-recourse debt caps losses, it does not eliminate them. The
-multifamily transitional book (83% LTV, ~17% delinquent) could produce outsized
-losses relative to its size. The \$3.1B agency repo book carries spread and margin
-risk even without credit risk; a 2022-style spread blow-out would again pressure
-book value and liquidity. Dividend sustainability depends on net interest spread,
-and a cut (even a prudent one) would likely hit the stock. Finally, the discount
-itself can persist indefinitely; the yield is the compensation for that patience.
+The risks are real and worth stating plainly. A severe housing recession,
+involving a national home-price decline of 25% or more, would materially impair
+book value regardless of the company's financing structure; non-recourse debt caps
+losses, it does not eliminate them. The multifamily transitional portfolio, with
+an 83% LTV and approximately 17% delinquency rate, could generate losses that are
+outsized relative to its size. The \$3.1 billion agency repo portfolio carries
+spread and margin risk even though it does not carry credit risk; a 2022-style
+widening in agency mortgage spreads would once again pressure book value and
+liquidity. Dividend sustainability depends on MFA's net interest spread; a dividend
+cut, even if financially prudent, would likely place pressure on the stock price.
+Finally, the discount to book value could persist indefinitely; the yield is the
+compensation investors receive for that patience.
 
 ### 9. Conclusion
 
-MFA trades like the company that took margin calls in March 2020. It is financed
-like a company that never intends to take them again. Fifty-six percent of the
-liability stack is non-recourse securitized debt, only ~13% of funding is
-mark-to-market against credit-sensitive collateral, borrower equity cushions
-average 36%, and a Monte Carlo stress of the actual portfolio shows book value
-surviving a GFC-scale housing decline without forced selling. At 70% of a \$13.22
-economic book value and a 15–16% yield, the market is paying investors handsomely
-to underwrite a risk that has, in large part, already been engineered out of the
-structure.
+MFA trades like the company that faced margin calls in March 2020. It is financed
+like a company that never intends to face them again. Fifty-six percent of the
+liability stack consists of non-recourse securitized debt, only approximately 13%
+of total funding is mark-to-market financing secured by credit-sensitive
+collateral, borrower equity cushions average 36%, and a Monte Carlo stress test of
+the actual portfolio shows book value surviving a GFC-scale housing decline without
+forced selling. At approximately 70% of its \$13.22 economic book value and with a
+15% to 16% dividend yield, the market is paying investors handsomely to underwrite
+a risk that has, in large part, already been engineered out of the company's
+financing structure.
 """
 
 
