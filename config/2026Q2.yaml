@@ -1,0 +1,269 @@
+# MFA Financial Q2 2026 book-value stress inputs.
+# Source: Form 10-Q for June 30, 2026; earnings released August 5, 2026.
+# Dollars and shares in THOUSANDS except fields ending _mm (MILLIONS).
+# Source table names/page references and modeling choices: docs/2026Q2-update.md.
+# Simulation defaults are modeling assumptions carried forward, not new disclosures.
+# The historical market-price reference retains its original date.
+
+meta:
+  ticker: MFA
+  entity: MFA Financial, Inc.
+  as_of_date: '2026-06-30'
+  filing: Form 10-Q, quarter ended June 30, 2026
+  currency: USD
+  earnings_release_date: '2026-08-05'
+  source_10q: https://www.mfafinancial.com/sec-filings/all-sec-filings/content/0001055160-26-000015/mfa-20260630.htm
+  source_earnings: https://www.mfafinancial.com/news-events/press-releases/detail/365/mfa-financial-inc-announces-second-quarter-2026-financial-results
+market:
+  price_per_share: 9.48
+  price_as_of: '2026-07-03'
+  note: Historical user-adjustable reference price carried forward from Q1; not an
+    August or current quote.
+balance_sheet:
+  total_stockholders_equity: 1776088
+  preferred_liquidation_preference: 491608
+  preferred_series_b: 206960
+  preferred_series_c: 284648
+  common_shares_outstanding: 101088
+  cash_unrestricted: 141193
+  restricted_cash: 169029
+book_value_reconciliation:
+  gaap_common_equity_for_bvps_mm: 1284.5
+  fv_adj_residential_loans_carrying_mm: 2.4
+  fv_adj_securitized_debt_carrying_mm: 47.5
+  economic_common_equity_mm: 1334.4
+  reported_gaap_bvps: 12.71
+  reported_economic_bvps: 13.2
+  other_unencumbered_securities_mm: 294.1
+  liquidity_source: '10-Q Item 3, Liquidity Risk: unencumbered Agency MBS. Excludes
+    restricted cash, $33.8mm unencumbered loans, and other securities without an unencumbered
+    disclosure.'
+asset_allocation:
+  segments:
+  - name: Non-QM loans
+    key: non_qm
+    credit_sensitive: true
+    assets_mm: 5671
+    non_mtm_debt_mm: 0
+    mtm_debt_mm: 683
+    securitized_debt_mm: 4356
+    senior_other_mm: 0
+    net_equity_mm: 632
+  - name: Single-family rental
+    key: sfr
+    credit_sensitive: true
+    assets_mm: 1153
+    non_mtm_debt_mm: 16
+    mtm_debt_mm: 111
+    securitized_debt_mm: 891
+    senior_other_mm: 0
+    net_equity_mm: 135
+  - name: SF transitional
+    key: sf_transitional
+    credit_sensitive: true
+    transitional: true
+    assets_mm: 654
+    non_mtm_debt_mm: 41
+    mtm_debt_mm: 314
+    securitized_debt_mm: 200
+    senior_other_mm: 0
+    net_equity_mm: 99
+  - name: MF transitional
+    key: mf_transitional
+    credit_sensitive: true
+    transitional: true
+    assets_mm: 321
+    non_mtm_debt_mm: 14
+    mtm_debt_mm: 223
+    securitized_debt_mm: 0
+    senior_other_mm: 0
+    net_equity_mm: 84
+  - name: Legacy RPL/NPL
+    key: legacy_rpl_npl
+    credit_sensitive: true
+    assets_mm: 920
+    non_mtm_debt_mm: 0
+    mtm_debt_mm: 78
+    securitized_debt_mm: 754
+    senior_other_mm: 0
+    net_equity_mm: 88
+  - name: Agency MBS
+    key: agency
+    credit_sensitive: false
+    agency: true
+    assets_mm: 4091
+    non_mtm_debt_mm: 0
+    mtm_debt_mm: 3641
+    securitized_debt_mm: 0
+    senior_other_mm: 0
+    net_equity_mm: 450
+  - name: Other, net
+    key: other
+    credit_sensitive: false
+    assets_mm: 619
+    non_mtm_debt_mm: 0
+    mtm_debt_mm: 115
+    securitized_debt_mm: 2
+    senior_other_mm: 214
+    net_equity_mm: 288
+  totals_mm:
+    assets: 13429
+    non_mtm_debt: 71
+    mtm_debt: 5165
+    securitized_debt: 6203
+    senior_other: 214
+    net_equity: 1776
+loan_characteristics:
+  non_qm:
+    wa_ltv: 0.64
+    wa_fico: 740
+    dpd_60plus: 0.042
+  sfr:
+    wa_ltv: 0.66
+    wa_fico: 741
+    dpd_60plus: 0.025
+  sf_transitional:
+    wa_ltv: 0.68
+    wa_fico: 754
+    dpd_60plus: 0.137
+  mf_transitional:
+    wa_ltv: 0.9
+    wa_fico: 750
+    dpd_60plus: 0.244
+  legacy_rpl_npl:
+    wa_ltv: 0.53
+    wa_fico: 646
+    dpd_60plus: 0.173
+net_interest_spread:
+  as_of: '2026-06-30'
+  segment_class:
+    non_qm: non_qm
+    sfr: business_purpose
+    sf_transitional: business_purpose
+    mf_transitional: business_purpose
+    legacy_rpl_npl: legacy_rpl_npl
+  classes:
+    non_qm:
+      net_yield: 0.0579
+      cost_of_funding: 0.0509
+      swap_carry: 0.0028
+    business_purpose:
+      net_yield: 0.0712
+      cost_of_funding: 0.0542
+      swap_carry: 0.0029
+    legacy_rpl_npl:
+      net_yield: 0.0774
+      cost_of_funding: 0.0426
+      swap_carry: 0.0036
+    securities:
+      net_yield: 0.0541
+      cost_of_funding: 0.0378
+      swap_carry: 0.0057
+delinquency_aging:
+  as_of: '2026-06-30'
+  segments:
+    non_qm:
+      upb: 5684786
+      current: 5290874
+      dpd_30_59: 153057
+      dpd_60_89: 53291
+      dpd_90plus: 187564
+    sfr:
+      upb: 1166676
+      current: 1113690
+      dpd_30_59: 23882
+      dpd_60_89: 1644
+      dpd_90plus: 27460
+    sf_transitional:
+      upb: 671699
+      current: 559111
+      dpd_30_59: 20782
+      dpd_60_89: 13167
+      dpd_90plus: 78639
+    mf_transitional:
+      upb: 360373
+      current: 269854
+      dpd_30_59: 2439
+      dpd_60_89: 0
+      dpd_90plus: 88080
+    legacy_rpl_npl:
+      upb: 1042205
+      current: 756263
+      dpd_30_59: 105823
+      dpd_60_89: 35606
+      dpd_90plus: 144513
+  basis: Reported Note 3 aging by UPB; exact $ thousands, not estimated.
+simulation_defaults:
+  hp_shock: -0.3
+  loan_dispersion_sigma: 0.2
+  systematic_sigma: 0.05
+  foreclosure_cost: 0.1
+  n_sims: 10000
+  agency_price_shock: -0.03
+  lender_mark_severity: 1.0
+  fire_sale_discount: 0.05
+  liquidity_haircut: 0.15
+  ltv_std_dev: 0.12
+  loans_per_segment: 500
+  seed: 42
+  default_mode: negative_equity
+  ramp_ltv_low: 1.0
+  ramp_ltv_high: 1.3
+  remark_fv_to_zero: false
+interest_rate_shock:
+  net_effective_duration: 0.94
+  net_convexity: -0.69
+  net_portfolio_value_base_mm: 14220
+  components:
+    residential_whole_loans:
+      market_value_mm: 8719
+      duration: 3.32
+      convexity: -0.33
+    securities:
+      market_value_mm: 4091
+      duration: 3.87
+      convexity: -1.49
+    derivatives_and_fixed_debt:
+      duration: -2.84
+      convexity: 0.0
+    other_and_cash:
+      market_value_mm: 619
+      duration: 0.0
+      convexity: 0.0
+  reported_shock_table:
+  - bps: 100
+    npv_change_thousands: -183614
+    pct_npv: -0.0129
+    pct_equity: -0.1034
+  - bps: 50
+    npv_change_thousands: -79514
+    pct_npv: -0.0056
+    pct_equity: -0.0448
+  - bps: 0
+    npv_change_thousands: 0
+    pct_npv: 0.0
+    pct_equity: 0.0
+  - bps: -50
+    npv_change_thousands: 54928
+    pct_npv: 0.0039
+    pct_equity: 0.0309
+  - bps: -100
+    npv_change_thousands: 85270
+    pct_npv: 0.006
+    pct_equity: 0.048
+  slider_bps_range:
+  - -200
+  - 200
+  npv_base_note: Approximate base implied by rounded reported changes and percentage
+    NPV changes; not a separately reported balance-sheet total.
+quarterly_workflow:
+  update_checklist:
+  - 'Consolidated Balance Sheets (p.3): equity, preferred liquidation preferences,
+    shares, cash'
+  - 'Note 3 loan characteristics and aging table (p.19): WA LTV / FICO / 60+ DPD and
+    exact UPB buckets'
+  - 'Asset allocation table (p.64): assets and financing columns per segment'
+  - 'Net interest spread components (p.72): yields, funding costs, swap carry'
+  - 'Book value reconciliation (p.83): fair-value adjustments and reported BVPS'
+  - 'Item 3 Interest Rate Risk (p.88): shock table, duration and convexity'
+  - 'Item 3 Liquidity Risk: unencumbered Agency MBS; exclude restricted cash'

@@ -566,7 +566,7 @@ def rate_shock_table(cfg: dict) -> list:
 
 
 # ---------------------------------------------------------------------------
-# Debt-service coverage (DSCR) under delinquency stress (10-Q p.66 + p.18)
+# Debt-service coverage (DSCR) under delinquency stress (spread table + Note 3)
 # ---------------------------------------------------------------------------
 def _delinq_rate(ag: dict, measure: str) -> float:
     """Delinquency rate for a segment's aging row under a chosen DPD measure."""
@@ -658,7 +658,7 @@ if __name__ == "__main__":
     import time
     from validate import load_and_validate
 
-    cfg = load_and_validate("config/2026Q1.yaml", verbose=False)
+    cfg = load_and_validate("config/2026Q2.yaml", verbose=False)
     params = ModelParams.from_config(cfg)
     t0 = time.perf_counter()
     res = run_simulation(cfg, params)

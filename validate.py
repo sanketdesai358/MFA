@@ -13,10 +13,10 @@ Checks performed
 2. Equity ties: net-equity total == total stockholders' equity.
 3. Book value reconciliation is internally consistent
    (economic = GAAP common + FV add-backs).
-4. Baseline BVPS (zero shock) reproduces the reported GAAP $12.70 and
-   Economic $13.22 to the penny : the single most important check.
+4. Baseline BVPS (zero shock) reproduces the configured reported GAAP and
+   Economic book values to the penny : the single most important check.
 
-Run standalone:  python validate.py --config config/2026Q1.yaml
+Run standalone:  python validate.py --config config/2026Q2.yaml
 """
 
 from __future__ import annotations
@@ -200,6 +200,13 @@ def load_and_validate(path: str | Path, verbose: bool = True) -> dict:
                 f"aging buckets cross-foot to UPB for '{key}'",
                 f"sum={bucket_sum} upb={ag['upb']} resid={bucket_sum - ag['upb']:+d}",
             )
+            if key in lc and ag["upb"] > 0:
+                actual_dpd = (ag["dpd_60_89"] + ag["dpd_90plus"]) / ag["upb"]
+                rep.check(
+                    abs(actual_dpd - lc[key]["dpd_60plus"]) <= 0.0005,
+                    f"60+ DPD aging ties to reported rate for '{key}'",
+                    f"aging={actual_dpd:.4%} reported={lc[key]['dpd_60plus']:.1%}",
+                )
         if "net_interest_spread" in cfg:
             nis = cfg["net_interest_spread"]
             for key, cls_name in nis["segment_class"].items():
@@ -265,7 +272,7 @@ def load_and_validate(path: str | Path, verbose: bool = True) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Validate an MFA stress config.")
-    ap.add_argument("--config", default="config/2026Q1.yaml")
+    ap.add_argument("--config", default="config/2026Q2.yaml")
     args = ap.parse_args()
     try:
         load_and_validate(args.config, verbose=True)

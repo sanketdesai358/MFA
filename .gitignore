@@ -15,3 +15,6 @@ Thumbs.db
 # Scratch
 _*.txt
 *.tmp
+
+# Local source extraction and verification
+tmp/

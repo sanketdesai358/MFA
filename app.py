@@ -2,7 +2,7 @@
 app.py: MFA Financial book-value stress dashboard (Streamlit + Plotly).
 
 Run:
-    streamlit run app.py -- --config config/2026Q1.yaml
+    streamlit run app.py -- --config config/2026Q2.yaml
 
 Everything quarter-specific comes from the YAML config; nothing is hard-coded
 here. The config is validated on load (validate.py) and the app refuses to run
@@ -49,7 +49,7 @@ PLOTLY_TEMPLATE = "plotly_white"
 # =============================================================================
 def _parse_config_path() -> str:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--config", default="config/2026Q1.yaml")
+    ap.add_argument("--config", default="config/2026Q2.yaml")
     # streamlit passes script args after `--`; ignore unknowns
     args, _ = ap.parse_known_args()
     return args.config
@@ -358,9 +358,9 @@ def dscr_measures_bar(cfg: dict, include_swap: bool, mult: float) -> go.Figure:
 def _render_dscr_tab(cfg: dict) -> None:
     st.markdown(
         "**Debt-service coverage** of the residential whole-loan book. For each "
-        "segment we take interest income (**net yield × assets**, p.66), assume "
+        "segment we take interest income (**net yield × assets**, net interest spread table), assume "
         "delinquent loans stop paying, and cover funding cost "
-        "(**cost of funding × debt**, p.66):"
+        "(**cost of funding × debt**, net interest spread table):"
     )
     st.latex(r"\text{DSCR}=\frac{\text{net yield}\times\text{assets}\times"
              r"(1-\text{delinquency})\;+\;\text{swap carry}}"
@@ -429,8 +429,8 @@ def _render_dscr_tab(cfg: dict) -> None:
     st.dataframe(tbl, width='stretch', hide_index=True)
 
     st.caption(
-        f"Net interest spread as of {res['as_of_spread']} (p.66); delinquency "
-        f"aging as of {res['as_of_aging']} (p.18). Delinquent loans are assumed to "
+        f"Net interest spread as of {res['as_of_spread']}; delinquency "
+        f"aging as of {res['as_of_aging']} (Note 3). Delinquent loans are assumed to "
         "stop paying interest (net of any recovery); debt service is held flat. "
         "Business-purpose segments (SFR, SF/MF transitional) share the disclosed "
         "Business Purpose Loans net yield / cost of funding."
@@ -759,31 +759,69 @@ def _small_chart(fig: go.Figure, caption: str, height: int = 320) -> None:
         st.caption(caption)
 
 
-def _render_thesis_tab(cfg: dict, shocks, disps, med_z: np.ndarray) -> None:
-    # Render the thesis, dropping the two LIVE charts in at their markers.
-    def _draw(marker: str) -> None:
-        if marker == "[[IMAGE1]]":
-            _small_chart(
-                heatmap_fig(med_z, shocks, disps,
-                            "Median Economic BVPS ($/share)", "RdYlGn", ".2f"),
-                "Live: stressed median Economic BVPS across home-price shock "
-                "(columns) and loan-level dispersion σ (rows).")
-        elif marker == "[[IMAGE2]]":
-            _small_chart(
-                rate_waterfall(cfg, 200),
-                "Live: Economic BVPS bridge under a +200bps parallel rate shock.")
-
-    remaining = _THESIS_MD
-    for marker in ("[[IMAGE1]]", "[[IMAGE2]]"):
-        before, sep, after = remaining.partition(marker)
-        st.markdown(before)
-        if sep:
-            _draw(marker)
-        remaining = after
-    st.markdown(remaining)
-    st.caption("Charts are live: they recompute from config/2026Q1.yaml "
-               "(10-Q, quarter ended March 31, 2026) and the sidebar model "
-               "settings. Source narrative: MFA_Financial_Thesis.docx.")
+def _render_thesis_tab(cfg: dict, shocks, disps, med_z: np.ndarray, price: float) -> None:
+    """Current filing facts and live charts, followed by the dated original thesis."""
+    bs = cfg["balance_sheet"]
+    bvr = cfg["book_value_reconciliation"]
+    aa = cfg["asset_allocation"]
+    totals = aa["totals_mm"]
+    debt = sum(totals[k] for k in
+               ("non_mtm_debt", "mtm_debt", "securitized_debt", "senior_other"))
+    credit_mtm = sum(s["mtm_debt_mm"] for s in aa["segments"]
+                     if s.get("credit_sensitive"))
+    lc = cfg["loan_characteristics"]
+    st.subheader(f"Portfolio update: {cfg['meta']['as_of_date']}")
+    k = st.columns(4)
+    k[0].metric("Reported GAAP BVPS", f"${bvr['reported_gaap_bvps']:.2f}")
+    k[1].metric("Reported Economic BVPS", f"${bvr['reported_economic_bvps']:.2f}")
+    k[2].metric("Unrestricted cash", f"${bs['cash_unrestricted']/1000:.1f}mm")
+    k[3].metric("Unencumbered securities",
+                f"${bvr['other_unencumbered_securities_mm']:.1f}mm")
+    st.markdown(
+        f"The allocation table reports **${totals['assets']:,.0f} million** of net "
+        f"assets and **${totals['net_equity']:,.0f} million** of equity. "
+        f"Securitized debt is **${totals['securitized_debt']:,.0f} million** "
+        f"(**{totals['securitized_debt']/debt:.1%}** of allocated financing). "
+        f"Mark-to-market financing secured by the five credit-sensitive loan "
+        f"segments totals **${credit_mtm:,.0f} million** "
+        f"(**{credit_mtm/debt:.1%}** of allocated financing)."
+    )
+    rows = [{
+        "Segment": s["name"],
+        "Assets $mm": s["assets_mm"],
+        "WA LTV": f"{lc[s['key']]['wa_ltv']:.0%}",
+        "WA FICO": lc[s["key"]]["wa_fico"],
+        "60+ days past due": f"{lc[s['key']]['dpd_60plus']:.1%}",
+    } for s in aa["segments"] if s.get("credit_sensitive")]
+    st.dataframe(rows, width='stretch', hide_index=True)
+    st.caption(
+        "Allocation figures are rounded to $1mm. Transitional LTVs can use "
+        "after-repaired values; see Note 3 for the valuation basis. "
+        "Delinquency aging uses the selected quarter's UPB buckets."
+    )
+    st.subheader("Home-price stress")
+    _small_chart(
+        heatmap_fig(med_z, shocks, disps,
+                    "Median Economic BVPS ($/share)", "RdYlGn", ".2f"),
+        "Live simulation using the selected quarter and sidebar assumptions.")
+    st.subheader("Interest-rate stress")
+    _small_chart(rate_waterfall(cfg, 200),
+                 "Live +200bps scenario extrapolated from the reported +/-50 "
+                 "and +/-100bps anchors; +200bps is not a reported filing case.")
+    st.caption(
+        f"All live figures use {cfg['meta']['filing']}. Simulation parameters "
+        "remain user assumptions. Historical share-price reference: "
+        f"${price:.2f}; the sidebar shows its reference date."
+    )
+    if cfg["meta"].get("source_10q"):
+        st.markdown(f"[Source: quarterly filing]({cfg['meta']['source_10q']})")
+    with st.expander("Original thesis - March 31, 2026 data (historical)"):
+        st.info("This is the original thesis narrative. Its numbers, valuation "
+                "claims and conclusions have not been refreshed. Use the "
+                "current-quarter figures and live scenarios above.")
+        historical = _THESIS_MD.replace("[[IMAGE1]]", "[Original chart omitted]")
+        historical = historical.replace("[[IMAGE2]]", "[Original chart omitted]")
+        st.markdown(historical)
 
 
 # =============================================================================
@@ -858,12 +896,12 @@ def main() -> None:
     sb.header("Market")
     mkt = cfg.get("market", {})
     price = float(sb.number_input(
-        "Current share price ($)", min_value=0.0,
+        "Share-price reference ($)", min_value=0.0,
         value=float(mkt.get("price_per_share", 9.48)), step=0.01,
-        help="NYSE:MFA last price, drives the premium/discount-to-book readout.",
+        help="User-adjustable reference price for price-to-book; see the date below.",
     ))
     if mkt.get("price_as_of"):
-        sb.caption(f"price as of {mkt['price_as_of']}")
+        sb.caption(f"Historical reference as of {mkt['price_as_of']}; adjust for a newer quote.")
 
     params_dict = dict(
         hp_shock=hp_shock, loan_dispersion_sigma=disp, systematic_sigma=sys_sigma,
@@ -897,7 +935,7 @@ def main() -> None:
     )
 
     with tab_thesis:
-        _render_thesis_tab(cfg, shocks, disps, med_z)
+        _render_thesis_tab(cfg, shocks, disps, med_z, price)
 
     # =====================================================================
     # TAB 1: home-price / credit stress (Monte Carlo)
@@ -998,7 +1036,7 @@ def main() -> None:
         _render_rate_tab(cfg, price)
 
     # =====================================================================
-    # TAB 3: DSCR / delinquency stress (p.66 net interest spread + p.18 aging)
+    # TAB 3: DSCR / delinquency stress (net interest spread + Note 3 aging)
     # =====================================================================
     with tab_dscr:
         _render_dscr_tab(cfg)
